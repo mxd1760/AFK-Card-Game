@@ -63,8 +63,9 @@ main{
     flex-grow:1;
     background-color:rgb(137, 137, 252);
     display:flex;
+    flex-direction:column;
     justify-content:center;
-    align-items:center;
+    align-items:stretch;
     flex-wrap:wrap;
 }
 footer{
@@ -77,10 +78,18 @@ footer{
 img{
     -webkit-user-drag:none;
 }
+main section{
+    flex:1 0 1px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    border: 10px solid black;
+}
+
 #hero_deck{
     bottom: 0;
     left: 1%;
-    transition:200ms;
+    transition:300ms;
     position:absolute;
 }
 #hero_deck:hover{
@@ -94,4 +103,11 @@ img{
 .held{
     transform:rotateX(10deg);
     position:absolute;
+}
+.info{
+    width: 200px;
+    height:200px;
+    position:absolute;
+    background-color:pink;
+    color:white;
 }
