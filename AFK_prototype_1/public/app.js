@@ -1,6 +1,8 @@
 // global constants
 const CARD_SOURCE = 'assets/deck.png';
 const CARD_ALT = 'card';
+const CARD_HIT = "assets/hit.png";
+const CARD_ATTACK = "assets/attack.png";
 // global element handles
 const playerHand = document.querySelector('footer');
 const gameField = document.querySelector('main');
@@ -11,10 +13,10 @@ const heroDeck = document.querySelector('#hero_deck');
 
 // global variables
 const cards = {
-    oHand:[],
-    oField:[],
-    pField:[],
-    pHand:[]
+    oHand: [],
+    oField: [],
+    pField: [],
+    pHand: []
 }
 let currentCard = null;
 let mousePosX = null;
@@ -89,11 +91,11 @@ function pickupCard(e) {
         mousePosX = e.clientX;
         mousePosY = e.clientY;
         currentCard.removeEventListener('mousedown', pickupCard);
-        if(cards.pField.includes(currentCard)){
-            cards.pField.splice(cards.pField.indexOf(currentCard),1);
-        } else if(cards.pHand.includes(currentCard)){
-            cards.pHand.splice(cards.pHand.indexOf(currentCard),1);
-        } else{
+        if (cards.pField.includes(currentCard)) {
+            cards.pField.splice(cards.pField.indexOf(currentCard), 1);
+        } else if (cards.pHand.includes(currentCard)) {
+            cards.pHand.splice(cards.pHand.indexOf(currentCard), 1);
+        } else {
             /**debug */
             console.log("held card not found in cards");
             /** */
@@ -111,19 +113,28 @@ function drag(e) {
         /**/
     }
 }
-function attackOpponentCard(e){
-    if (currentCard && e.button === 0){
+function attackOpponentCard(e, card = null) {
+
+    if (currentCard && e.button === 0) {
+        if (card) {
+            currentCard.setAttribute('src', CARD_ATTACK);
+            card.setAttribute('src', CARD_HIT);
+        }
         /**debug */
-        opponentField.append(currentCard);// add card to field for now
-        cards.oField.push(currentCard);
-        console.log("DEBUG: Card Placed in opponent Field");
+        else {
+            opponentField.append(currentCard);// add card to field for now
+            cards.oField.push(currentCard);
+            console.log("DEBUG: Card Placed in opponent Field");
+        }
         /** */
+
     }
 }
+
 function dropCardOnField(e) {
     if (currentCard && e.button === 0) {
         playerField.append(currentCard); // play card on field
-        currentCard.addEventListener('mousedown',pickupCard);
+        currentCard.addEventListener('mousedown', pickupCard);
         cards.pField.push(currentCard);
 
         /**
@@ -149,8 +160,29 @@ function drop(e) {
         let rect2 = opponentField.getBoundingClientRect();
         if (e.clientY > rect.top && e.clientY < rect.bottom) {
             dropCardOnField(e);
-        } else if (e.clientY > rect2.top && e.clientY < rect2.bottom){
-            attackOpponentCard(e); 
+        } else if (e.clientY > rect2.top && e.clientY < rect2.bottom) {
+            let hit = false
+            for (card of cards.oField) {
+                let cardRect = card.getBoundingClientRect();
+                if (e.clientX < cardRect.right && e.clientX > cardRect.left) {
+                    if (e.clientY > rect2.top && e.clientY < rect2.bottom) {
+                        attackOpponentCard(e, card);
+                        hit = true;
+                        if (currentCard.parentNode === document.body) {
+                            dropCardOnField(e); // card should be processed after attack
+                            // for now it can just return to the field
+                            // spells might need to be destroyed instead.
+                        }
+                    }
+                    break;
+                }
+            }
+
+            /** Dev Code for placing cards on enemy field. */
+            if (!hit) { // hit can also be removed.
+                attackOpponentCard(e); // empty version of aOC()
+            }
+            /** */
         } else {
             dropCardInHand(e);
         }
