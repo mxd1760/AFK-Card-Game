@@ -1,0 +1,113 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*-------------------------------------------------------------------------------------*/
+html{
+    height:100%;
+}
+body{
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+}
+header{
+    height:50px;
+    background-color:rgb(116, 52, 116);
+}
+main{
+    flex-grow:1;
+    background-color:rgb(137, 137, 252);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:stretch;
+    flex-wrap:wrap;
+}
+footer{
+    height:225px;;
+    background-color:rgb(34, 34, 34);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+img{
+    -webkit-user-drag:none;
+}
+main section{
+    flex:1 0 1px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    border: 10px solid black;
+}
+
+#hero_deck{
+    bottom: 0;
+    left: 1%;
+    transition:300ms;
+    position:absolute;
+}
+#hero_deck:hover{
+    transform:translateY(-0.4em);
+    box-shadow:0 0 2em -1em yellow;
+}
+.card{
+    width:125px;
+    height:200px;
+}
+.held{
+    transform:rotateX(10deg);
+    position:absolute;
+}
+.info{
+    width: 200px;
+    height:200px;
+    position:absolute;
+    background-color:pink;
+    color:white;
+}
