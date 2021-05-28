@@ -130,7 +130,6 @@ function attackOpponentCard(e, card = null) {
 
     }
 }
-
 function dropCardOnField(e) {
     if (currentCard && e.button === 0) {
         playerField.append(currentCard); // play card on field
