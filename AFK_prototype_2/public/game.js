@@ -10,8 +10,18 @@ const opponentField = document.querySelector("#opponentField")
 const playerField = document.querySelector("#playerField")
 const heroDeck = document.querySelector('#hero_deck');
 
+// socket stuff
+const cSocket = io(`http://localhost:3000`);
+let room;
+let connected;
+cSocket.on('status',(status)=>{
+    console.log(status);
+    room = status.room;
+    connected = status.connected;
+})
 
-// global variables
+
+// global game variables
 const cards = {
     oHand: [],
     oField: [],
@@ -140,6 +150,7 @@ function dropCardOnField(e) {
         console.log('dropped card (on field)');
         /**/
     }
+    /**/cSocket.send(`card dropped from ${cSocket.id} in room ${room}`); /**/
 }
 function dropCardInHand(e) {
     if (currentCard && e.button === 0) {
