@@ -18,7 +18,12 @@ cSocket.on('status',(status)=>{
     console.log(status);
     room = status.room;
     connected = status.connected;
-})
+});
+
+// debug stuff
+cSocket.on('message',(msg)=>{
+    console.log(msg);
+});
 
 
 // global game variables

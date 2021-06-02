@@ -96,6 +96,7 @@ io.on('connection',(sSocket)=>{
     // debug messages
     sSocket.on('message',(msg)=>{
         console.log(msg);
+        io.to(Array.from(sSocket.rooms)[1]).emit('message',msg);
     });
 });
 
