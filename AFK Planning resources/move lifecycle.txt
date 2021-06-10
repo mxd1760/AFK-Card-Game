@@ -1,0 +1,41 @@
+
+
+Move life-cycle:
+    1: player makes a Move  (p1 enviornment)
+    2: move is validatated  (p1 game)
+    3: move is submitted    (p1 enviornment)
+    4: server routes move   (server)
+    5: move is recieved     (p2 enviornment)
+    6: move is validated    (p2 game)
+    7: opponent view updates(p2 enviornment)
+
+functional requirements:
+    Enviornment:
+         - knows who's turn it's on
+         - can recieve moves when it's your turn
+         - can submit moves when it's your turn
+         - can recieve moves
+             - will only take them seriously on opponent turns
+         - can update view 
+    Game:
+         - validates incoming and outgoing moves
+         - should probably have some control over when turn's switch
+
+non-functional requirements:
+    Game:
+         - responsible for rules of the game
+         - likely is responsible for card assets
+         - knows how to setup the game at the start
+
+Structure:
+    Enviornment: 
+        Responsabilities:
+             - define/initialize game state variables
+             - define/hold access functions
+        State:
+             - current cards on board 
+             - weather or not the player should be allowed to make moves
+                 # this is how we make it turn based but allowing the engine to 
+                also run games where players should be able to take turns at any time
+    
+        
